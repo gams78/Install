@@ -5,6 +5,5 @@
 
 @Echo Running PowerShell script ...
 Powershell.exe -executionpolicy remotesigned -File C:\Install\profiles.ps1
-rem PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""profiles.ps1""' -Verb RunAs}"
 @Echo PowerShell script finished.
 pause
