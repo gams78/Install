@@ -1,6 +1,8 @@
 ######################### Environmental variables #############################
 $confirm = Read-Host "Set environmental variables (y/n)?"
 if ($confirm -eq 'y') {
+	echo "Creating temp folder ..."
+	New-Item -Path "c:\Temp" -ItemType Directory -Force
 	echo "Setting environmental variables ..."
 	[Environment]::SetEnvironmentVariable('TEMP','c:\Temp', 'User')
 	[Environment]::SetEnvironmentVariable('TMP','c:\Temp', 'User')
@@ -14,8 +16,10 @@ else {
 ######################### Windows activation ##################################
 $confirm = Read-Host "Activate Windows Eduaction licence (y/n)?"
 if ($confirm -eq 'y') {
+	echo "Reading activation key from file ..."
+	$win10edu = Get-Content -Path "win10edu.txt"
 	echo "Setting activation key ..."
-	slmgr /ipk CYN7P-8F6TV-C4W7M-2DKKG-3V64Q
+	slmgr /ipk $win10edu
 	pause
 	echo "Activating ..."
 	slmgr /ato
