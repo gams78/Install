@@ -5,7 +5,7 @@ Skripte za namestitev, posodobitev in vzdrževanje Windows delovnih postaj.
 ## Uporaba
 
 - Vse skripte naj bodo vedno nameščene na **C:\Install**
-- Batch skripte se vedno zaganja z lokalnim uporabnikom **Admin** z administratorskimi pravicami
+- Batch skripte se vedno zaganja z lokalnim uporabnikom **admin** z administratorskimi pravicami
 - PowerShell skripte se vedno zaganja preko Batch skript
 
 ## Zagon
