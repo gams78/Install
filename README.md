@@ -17,7 +17,7 @@ Skripte za namestitev, posodobitev in vzdrževanje Windows delovnih postaj.
 
 - **run.ps1** (namestitev in konfiguracija celotnega sistema ter clean-up na koncu)
 - **profiles.ps1** (pregled in brisanje uporabniških profilov - na začetku pozorno sledimo navodilom za nastavitev parametrov brisanja)
-- **update.ps1** (posodobi vse skripte iz GutHub-a)
+- **update.ps1** (posodobi vse skripte iz GutHub-a in prenese namestitvene datoteke iz strežnika)
 - **InstallOffice.ps1** (odstrani Office 365 in namesti Office LTSC)
 
 ## Avtor
