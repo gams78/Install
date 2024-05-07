@@ -8,6 +8,7 @@ if($odgovor -eq "d") {
 		Invoke-WebRequest -Uri "https://raw.githubusercontent.com/gams78/Install/master/run.ps1" -OutFile "c:\Install\run.ps1"
 		Invoke-WebRequest -Uri "https://raw.githubusercontent.com/gams78/Install/master/profiles.ps1" -OutFile "c:\Install\profiles.ps1"
 		Invoke-WebRequest -Uri "https://raw.githubusercontent.com/gams78/Install/master/update.ps1" -OutFile "c:\Install\update.ps1"
+		Write-Host "Skripte so bile posodobljene."
 	}
 	Catch {
 		Write-Host "Napaka pri posodabljanju skript" -ForegroundColor Red

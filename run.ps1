@@ -3,6 +3,7 @@ $confirm = Read-Host "Set environmental variables (y/n)?"
 if ($confirm -eq 'y') {
 	echo "Creating temp folder ..."
 	New-Item -Path "c:\Temp" -ItemType Directory -Force
+	
 	echo "Setting environmental variables ..."
 	[Environment]::SetEnvironmentVariable('TEMP','c:\Temp', 'User')
 	[Environment]::SetEnvironmentVariable('TMP','c:\Temp', 'User')
@@ -18,9 +19,11 @@ $confirm = Read-Host "Activate Windows Eduaction licence (y/n)?"
 if ($confirm -eq 'y') {
 	echo "Reading activation key from file ..."
 	$win10edu = Get-Content -Path "win10edu.txt"
+	
 	echo "Setting activation key ..."
 	slmgr /ipk $win10edu
 	pause
+	
 	echo "Activating ..."
 	slmgr /ato
 }
@@ -34,9 +37,11 @@ if ($confirm -eq 'y') {
 	echo "Installing windows update module ..."
 	Install-Module -Name PSWindowsUpdate -Force
 	Get-Package -Name PSWindowsUpdate
+	
 	echo "Checking for updates ..."
 	Get-WindowsUpdate
 	pause
+	
 	echo "Updating ..."
 	Install-WindowsUpdate
 }
@@ -48,7 +53,7 @@ else {
 $confirm = Read-Host "Run Ninite (y/n)?"
 if ($confirm -eq 'y') {
 	echo "Running Ninte ..."
-	Invoke-Expression -Command "c:\Install\Ninite.exe"
+	Invoke-Expression -Command "c:\Install\default\Ninite.exe"
 	pause
 }
 else {
@@ -59,7 +64,8 @@ else {
 $confirm = Read-Host "Install Adobe Reader (y/n)?"
 if ($confirm -eq 'y') {
 	echo "Copying Adobe Reader installation file ..."
-	Copy-Item "c:\Install\Reader_si.exe" -Destination "c:\Install\Reader_si_install.exe"
+	Copy-Item "c:\Install\default\Reader_si.exe" -Destination "c:\Install\Reader_si_install.exe"
+	
 	echo "Installing Adobe Reader ..."
 	Invoke-Expression -Command "c:\Install\Reader_si_install.exe"
 	pause
@@ -68,31 +74,25 @@ else {
 	echo "skipping Adobe Reader installation ..."
 }
 
+######################### WinCDEmu ##############################################
+$confirm = Read-Host "Install WinCDEmu (y/n)?"
+if ($confirm -eq 'y') {
+	echo "Running Ninte ..."
+	Invoke-Expression -Command "c:\Install\default\WinCDEmu-4.1.exe"
+	pause
+}
+else {
+	echo "skipping Ninite ..."
+}
+
 ############################# winget ##########################################
 $confirm = Read-Host "Install winget (y/n)?"
 if ($confirm -eq 'y') {
-	<# ### v1.0 ###
-	echo "setting winget download url ..."
-	$URL = "https://api.github.com/repos/microsoft/winget-cli/releases/latest"
-	$URL = (Invoke-WebRequest -Uri $URL -UseBasicParsing).Content | ConvertFrom-Json |
-			Select-Object -ExpandProperty "assets" |
-			Where-Object "browser_download_url" -Match '.msixbundle' |
-			Select-Object -ExpandProperty "browser_download_url"
-
-	echo "downloading winget ..."
-	Invoke-WebRequest -Uri $URL -OutFile "Setup.msix" -UseBasicParsing
-
-	echo "installing winget ..."
-	Add-AppxPackage -Path "Setup.msix"
-
-	echo "deleting winget installation file ..."
-	Remove-Item "Setup.msix"
-	pause
-	### v 1.0 ### #>
 	
 	echo "getting winget install script ..."
 	Install-Script -Name winget-install
 	pause
+	
 	echo "running winget install script ..."
 	winget-install.ps1
 	
@@ -100,54 +100,6 @@ if ($confirm -eq 'y') {
 else {
 	echo "skipping winget installation ..."
 }
-
-<#
-############################### Office 365 Unistall ###########################
-$confirm = Read-Host "Uninstall Office 365 (y/n)?"
-if ($confirm -eq 'y') {
-	
-	echo "Uninstalling Office 365 ..."
-	Get-Item HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\ClickToRun\Configuration | Remove-Item -Force -Verbose
-	
-#	Get-AppxPackage -name "Microsoft.Office.Desktop" | Remove-AppxPackage
-	winget uninstall "Programi Microsoft 365 za podjetja - sl-si"
-}
-else {
-	echo "skipping Office 365 uninstallation ..."
-}
-
-############################# Office 2019 #####################################
-$confirm = Read-Host "Install Office 2019 Pro Plus LTSC (y/n)?"
-if ($confirm -eq 'y') {
-
-	echo "Downloading Office 2019 Pro Plus LTSC ..."
-	c:\install\olosch\setup.exe /download c:\install\olosch\InstallOffice2019ProPlusLTSC.xml
-	pause
-
-	echo "Installing Office 2019 Pro Plus LTSC ..."
-	c:\install\olosch\setup.exe /configure c:\install\olosch\InstallOffice2019ProPlusLTSC.xml
-	pause
-}
-else {
-	echo "skipping Office 2019 Pro Plus LTSC installation ..."
-}
-
-############################# Office 2021 #####################################
-$confirm = Read-Host "Install Office 2021 Pro Plus LTSC (y/n)?"
-if ($confirm -eq 'y') {
-
-	echo "Downloading Office 2021 Pro Plus LTSC ..."
-	c:\odt\setup.exe /download c:\install\olosch\InstallOffice2021ProPlusLTSC.xml
-	pause
-
-	echo "Installing Office 2021 Pro Plus LTSC ..."
-	c:\odt\setup.exe /configure c:\install\olosch\InstallOffice2021ProPlusLTSC.xml
-	pause
-}
-else {
-	echo "skipping Office 2021 Pro Plus LTSC installation ..."
-}
-#>
 
 ############################# Office 365 ######################################
 $confirm = Read-Host "Install Office 365 (y/n)?"
@@ -168,6 +120,7 @@ if ($confirm -eq 'y') {
 	echo "Uninstalling MS Teams Classic ..."
 	winget uninstall "Microsoft Teams classic"
 	pause
+	
 	echo "Installing MS Teams for School and Work ..."
 	winget install -e --id Microsoft.Teams
 	pause
@@ -180,11 +133,33 @@ else {
 $confirm = Read-Host "Install Smart Notebook (y/n)?"
 if ($confirm -eq 'y') {
 	echo "Installing Smart Notebook ..."
-	Invoke-Expression -Command "c:\Install\smart23-2web.exe"
+	Invoke-Expression -Command "c:\Install\didaktika\smart23-2web.exe"
 	pause
 }
 else {
 	echo "skipping Smart Notebook installation ..."
+}
+
+############################# Hitachi drivers ##################################
+$confirm = Read-Host "Install Hitachi drivers (y/n)?"
+if ($confirm -eq 'y') {
+	echo "Installing Hitachi drivers ..."
+	Invoke-Expression -Command "c:\Install\didaktika\Hitachi IFPD Windows Touch Driver Setup.exe"
+	pause
+}
+else {
+	echo "skipping Hitachi drivers installation ..."
+}
+
+############################# Promethean drivers ##################################
+$confirm = Read-Host "Install Promethean drivers (y/n)?"
+if ($confirm -eq 'y') {
+	echo "Installing Promethean drivers ..."
+	Invoke-Expression -Command "c:\Install\didaktika\ActivDriver_5_18_19_x64.exe"
+	pause
+}
+else {
+	echo "skipping Promethean drivers installation ..."
 }
 
 ############################# Active Directory Users and Computers ############

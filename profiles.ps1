@@ -1,6 +1,3 @@
-# Datoteka za beleženje napak
-$logFile = "c:\Install\profiles.log"
-
 # Funkcija za brisanje profila
 function BrisiProfil {
     param(
