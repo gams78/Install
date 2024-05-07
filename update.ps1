@@ -29,7 +29,7 @@ if($odgovor -eq "d") {
 
 	# Ustvarjanje začasnega pogona za omrežno mapo z uporabo poverilnic
 	$networkPath = "\\helium.osbp.si\admin"
-	New-PSDrive -Name "NetworkShare" -PSProvider FileSystem -Root $networkPath -Credential $credential -Persist
+	New-PSDrive -Name "I" -PSProvider FileSystem -Root $networkPath -Credential $credential -Persist
 	pause
 
 	Write-Host "Brišem obstoječe mape ..."
@@ -49,17 +49,17 @@ if($odgovor -eq "d") {
 	pause
 
 	Write-Host "Kopiram nove datoteke ..."
-	Copy-Item -Path "NetworkShare:\Install\*.txt" -Destination "C:\Install\"
-	Copy-Item -Path "NetworkShare:\Install\*.lnk" -Destination "C:\Install\"
-	Copy-Item -Path "NetworkShare:\Install\admin\*.*" -Destination "C:\Install\admin\"
-	Copy-Item -Path "NetworkShare:\Install\default\*.*" -Destination "C:\Install\default\"
-	Copy-Item -Path "NetworkShare:\Install\didaktika\*.*" -Destination "C:\Install\didaktika\"
-	Copy-Item -Path "NetworkShare:\Install\digfab\*.*" -Destination "C:\Install\digfab\"
-	Copy-Item -Path "NetworkShare:\Install\olosch\*.*" -Destination "C:\Install\olosch\"
+	Copy-Item -Path "I:\Install\*.txt" -Destination "C:\Install\"
+	Copy-Item -Path "I:\Install\*.lnk" -Destination "C:\Install\"
+	Copy-Item -Path "I:\Install\admin\*.*" -Destination "C:\Install\admin\"
+	Copy-Item -Path "I:\Install\default\*.*" -Destination "C:\Install\default\"
+	Copy-Item -Path "I:\Install\didaktika\*.*" -Destination "C:\Install\didaktika\"
+	Copy-Item -Path "I:\Install\digfab\*.*" -Destination "C:\Install\digfab\"
+	Copy-Item -Path "I:\Install\olosch\*.*" -Destination "C:\Install\olosch\"
 	pause
 
 	# Odklop pogona, če je potrebno
-	Remove-PSDrive -Name "NetworkShare"
+	Remove-PSDrive -Name "I"
 	
 	Write-Host "Datoteke so prekopirane."
 
